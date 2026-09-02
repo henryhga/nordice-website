@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+:root {
+  /* Nordice — paleta de marca (negro/blanco/plata, azul glaciar como acento mínimo) */
+  --color-ink: #0a0a0b;
+  --color-ink-deep: #050506;
+  --color-ice: #f4f5f3;
+  --color-platinum: #b9c0c4;
+  --color-platinum-dim: #6d7477;
+  --color-glacier: #4a5a66;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-ink-deep: var(--color-ink-deep);
+  --color-ice: var(--color-ice);
+  --color-platinum: var(--color-platinum);
+  --color-platinum-dim: var(--color-platinum-dim);
+  --color-glacier: var(--color-glacier);
+
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-manrope);
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-ice);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-glacier);
+  color: var(--color-ice);
+}
