@@ -12,7 +12,7 @@ export function Product() {
     <section
       id="producto"
       aria-label="El producto"
-      className="bg-ink px-6 py-32 md:py-40"
+      className="bg-ink-deep px-6 py-32 md:py-40"
     >
       <motion.div
         initial="hidden"

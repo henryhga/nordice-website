@@ -48,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="es"
       className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-ink text-ice">{children}</body>
+      <body className="min-h-full flex flex-col bg-ink-deep text-ice">{children}</body>
     </html>
   );
 }
