@@ -1,20 +1,20 @@
 "use client";
 
 import { Fragment } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { icons } from "@/components/icons";
 import { process } from "@/content/copy";
 import { fadeUp, stagger } from "@/lib/motion";
 
-// Cuatro pasos conectados por flechas — en fila en desktop, apilados con
-// flechas giradas 90° en mobile. Aparición secuencial vía el mismo
-// sistema de stagger que el resto del sitio (150ms entre pasos).
+// Ilustraciones reales (recortadas de la referencia del cliente, ver
+// public/illustrations) — el número va integrado en el label ("1.
+// Origen"), no como elemento gráfico separado sobre el ícono.
 export function Process() {
   return (
     <section
       id="proceso"
       aria-label="Nuestro proceso"
-      className="bg-ink-deep px-6 py-32 md:py-40"
+      className="bg-ink-deep px-6 py-20 md:py-28"
     >
       <motion.div
         initial="hidden"
@@ -34,9 +34,8 @@ export function Process() {
           className="mx-auto mt-5 h-px w-10 bg-platinum/40"
         />
 
-        <div className="mt-20 flex flex-col items-center gap-10 md:flex-row md:items-start md:justify-between md:gap-4">
+        <div className="mt-14 flex flex-col items-center gap-10 md:flex-row md:items-start md:justify-between md:gap-4">
           {process.steps.map((step, index) => {
-            const Icon = icons[step.icon];
             const isLast = index === process.steps.length - 1;
             return (
               <Fragment key={step.name}>
@@ -44,12 +43,16 @@ export function Process() {
                   variants={fadeUp}
                   className="flex max-w-[220px] flex-col items-center text-center"
                 >
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-platinum-dim">
-                    {index + 1}
-                  </span>
-                  <Icon className="mt-3 h-10 w-10 text-ice" />
+                  <Image
+                    src={step.image}
+                    alt={step.name}
+                    width={236}
+                    height={120}
+                    unoptimized
+                    className="h-16 w-auto object-contain"
+                  />
                   <h3 className="mt-4 text-sm uppercase tracking-[0.15em] text-ice">
-                    {step.name}
+                    {index + 1}. {step.name}
                   </h3>
                   <p className="mt-2 text-sm text-platinum-dim">{step.description}</p>
                 </motion.div>
@@ -58,7 +61,7 @@ export function Process() {
                   <motion.span
                     variants={fadeUp}
                     aria-hidden="true"
-                    className="rotate-90 text-platinum/50 md:mt-8 md:rotate-0"
+                    className="rotate-90 text-platinum/50 md:mt-10 md:rotate-0"
                   >
                     →
                   </motion.span>

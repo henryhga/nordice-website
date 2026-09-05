@@ -2,18 +2,17 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { icons } from "@/components/icons";
 import { experience } from "@/content/copy";
 import { fadeUp, stagger } from "@/lib/motion";
 
-// Foto real (recortada de la referencia que pasó el cliente) sangrando
+// Foto e íconos reales (recortados de la referencia del cliente) sangrando
 // hasta el borde derecho del viewport; el texto se alinea con el mismo
 // margen izquierdo que usa max-w-6xl en el resto del sitio, vía calc().
 export function Experience() {
   return (
     <section
       aria-label="Eleva cada experiencia"
-      className="bg-ink-deep py-32 md:py-40"
+      className="bg-ink-deep py-20 md:py-28"
     >
       <motion.div
         initial="hidden"
@@ -34,22 +33,26 @@ export function Experience() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-x-8 gap-y-6">
-            {experience.categories.map((category, index) => {
-              const Icon = icons[category.icon];
-              return (
-                <div
-                  key={category.name}
-                  className={`flex flex-col items-center gap-3 pl-8 first:pl-0 ${
-                    index !== 0 ? "border-l border-platinum/10" : ""
-                  }`}
-                >
-                  <Icon className="h-9 w-9 text-ice" />
-                  <span className="text-[11px] uppercase tracking-[0.2em] text-platinum-dim">
-                    {category.name}
-                  </span>
-                </div>
-              );
-            })}
+            {experience.categories.map((category, index) => (
+              <div
+                key={category.name}
+                className={`flex flex-col items-center gap-3 pl-8 first:pl-0 ${
+                  index !== 0 ? "border-l border-platinum/10" : ""
+                }`}
+              >
+                <Image
+                  src={category.image}
+                  alt={category.name}
+                  width={65}
+                  height={60}
+                  unoptimized
+                  className="h-8 w-auto object-contain"
+                />
+                <span className="text-[11px] uppercase tracking-[0.2em] text-platinum-dim">
+                  {category.name}
+                </span>
+              </div>
+            ))}
           </motion.div>
 
           <motion.a

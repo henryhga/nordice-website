@@ -45,7 +45,7 @@ export function Contact() {
     <section
       id="contacto"
       aria-label="Contacto"
-      className="bg-ink-deep px-6 py-32 md:py-40"
+      className="bg-ink-deep px-6 py-20 md:py-28"
     >
       <motion.div
         initial="hidden"

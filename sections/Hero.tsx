@@ -55,25 +55,13 @@ export function Hero() {
           variants={stagger()}
           className="flex flex-col items-center text-center lg:items-start lg:text-left"
         >
-          <motion.h1
-            variants={fadeUp}
-            className="flex w-full flex-col items-center gap-6 lg:items-start"
-          >
-            {/* Lockup de marca: ícono (N tallada) + wordmark. Ambos
-                reexportados con transparencia real desde /assets-originals
-                (fuera de git/deploy — copia de seguridad). `unoptimized`:
+          <motion.h1 variants={fadeUp} className="w-full">
+            {/* Wordmark real, sin transparencia (fuera de git/deploy —
+                copia de seguridad en /assets-originals). `unoptimized`:
                 el optimizador de imágenes de Next reencodea a WebP/AVIF y
-                aplana el canal alfa a opaco en esta versión; se sirven los
-                PNG tal cual para conservarla. */}
-            <Image
-              src="/brand/n-mark.png"
-              alt=""
-              width={1254}
-              height={1254}
-              priority
-              unoptimized
-              className="h-16 w-16 select-none sm:h-20 sm:w-20"
-            />
+                aplana el canal alfa a opaco en esta versión; se sirve el
+                PNG tal cual para conservarla. Sin ícono N encima: la
+                referencia no lo trae ahí — la N ya está en la foto. */}
             <Image
               src="/brand/wordmark.png"
               alt={hero.brandName}
@@ -81,11 +69,11 @@ export function Hero() {
               height={724}
               priority
               unoptimized
-              className="h-auto w-full max-w-md select-none"
+              className="mx-auto h-auto w-full max-w-md select-none lg:mx-0"
             />
           </motion.h1>
 
-          <motion.div variants={fadeUp} className="mt-8 w-full max-w-md">
+          <motion.div variants={fadeUp} className="mt-2 w-full max-w-md">
             {/* Firma caligráfica original, con el mismo tratamiento que
                 tenía antes (transparencia real, sin optimizador de Next
                 por el bug de alfa en WebP/AVIF — ver /assets-originals). */}
@@ -109,24 +97,6 @@ export function Hero() {
           </motion.a>
         </motion.div>
       </div>
-
-      <motion.a
-        href="#origen"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 1.2 }}
-        className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3"
-      >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-platinum-dim">
-          {hero.scrollHint}
-        </span>
-        <motion.span
-          className="h-10 w-px bg-platinum/40"
-          style={{ transformOrigin: "top" }}
-          animate={{ scaleY: [0.3, 1, 0.3] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.a>
     </section>
   );
 }
