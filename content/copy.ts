@@ -11,13 +11,89 @@ export const site = {
 export const hero = {
   brandName: "Nordice",
   sub: "Hielo nacido de la pureza del norte.",
-  cta: "Solicitar acceso",
+  cta: "Descubre nuestro proceso",
+  ctaHref: "#proceso",
   scrollHint: "Descubrir el origen",
+};
+
+export const nav = {
+  items: [
+    { label: "Inicio", href: "#inicio" },
+    { label: "Esencia", href: "#esencia" },
+    { label: "Proceso", href: "#proceso" },
+    { label: "Productos", href: "#producto" },
+    { label: "Contacto", href: "#contacto" },
+  ],
+  cta: "Hacer pedido",
 };
 
 export const origin = {
   kicker: "El origen",
 };
+
+export const essence = {
+  title: "Nuestra esencia",
+  items: [
+    {
+      name: "Pureza",
+      description: "Nacido en las aguas más puras del norte, libre de impurezas.",
+      icon: "mountain",
+    },
+    {
+      name: "Claridad",
+      description: "Transparencia excepcional que realza cada detalle de tu bebida.",
+      icon: "cube",
+    },
+    {
+      name: "Artesanía",
+      description: "Elaborado con precisión y dedicación en cada pieza de hielo.",
+      icon: "craft",
+    },
+    {
+      name: "Experiencia",
+      description: "Diseñado para elevar momentos y crear recuerdos inolvidables.",
+      icon: "glass",
+    },
+  ],
+} as const;
+
+export const process = {
+  title: "Nuestro proceso",
+  steps: [
+    {
+      name: "Origen",
+      description: "Aguas cristalinas de glaciares remotos del norte.",
+      icon: "mountain",
+    },
+    {
+      name: "Pureza",
+      description: "Filtración natural para una pureza incomparable.",
+      icon: "waterfall",
+    },
+    {
+      name: "Congelación lenta",
+      description: "Congelación controlada que elimina impurezas y burbujas.",
+      icon: "iceberg",
+    },
+    {
+      name: "Resultado",
+      description: "Hielo cristalino que transforma cada experiencia.",
+      icon: "glass",
+    },
+  ],
+} as const;
+
+export const experience = {
+  title: "Eleva cada experiencia",
+  intro: "Para quienes entienden que los detalles hacen la diferencia.",
+  categories: [
+    { name: "Bars", icon: "martini" },
+    { name: "Restaurantes", icon: "cutlery" },
+    { name: "Hoteles", icon: "bell" },
+    { name: "Eventos", icon: "toast" },
+  ],
+  cta: "Solicita información",
+} as const;
 
 export const product = {
   kicker: "El producto",
