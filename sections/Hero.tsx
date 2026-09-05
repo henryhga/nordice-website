@@ -5,12 +5,11 @@ import { motion } from "framer-motion";
 import { hero } from "@/content/copy";
 import { fadeUp, stagger } from "@/lib/motion";
 
-// Layout de 2 columnas: foto real a la izquierda (recorte de la
-// referencia que pasó el cliente — la N tallada en cristal junto al
-// whisky sirviéndose), lockup de marca + firma a la derecha. La luz que
-// se mueve al fondo sigue siendo un placeholder generado (gradientes
-// radiales a la deriva, ~60-75s por ciclo) que da ambiente sin competir
-// con la foto.
+// La foto sangra hasta el borde izquierdo/inferior del viewport (mitad
+// izquierda en desktop, franja superior en mobile) y se funde con el
+// fondo vía un degradado en el borde que toca el texto — en vez de
+// flotar como una tarjeta separada dentro de la sección. Empieza justo
+// debajo del header para no perder legibilidad del nav sobre la foto.
 export function Hero() {
   return (
     <section
@@ -18,36 +17,34 @@ export function Hero() {
       aria-label="Presentación"
       className="relative min-h-svh w-full overflow-hidden bg-ink-deep"
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <motion.div
-          className="absolute -left-1/4 top-[-10%] h-[70vh] w-[70vh] rounded-full bg-glacier/25 blur-[140px]"
-          animate={{ x: [0, 40, -20, 0], y: [0, 30, -10, 0] }}
-          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-        />
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <motion.div
           className="absolute -right-[10%] bottom-[-15%] h-[60vh] w-[60vh] rounded-full bg-platinum/10 blur-[160px]"
           animate={{ x: [0, -30, 20, 0], y: [0, -20, 10, 0] }}
           transition={{ duration: 75, repeat: Infinity, ease: "linear" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink-deep/50 via-transparent to-ink-deep" />
       </div>
 
-      <div className="relative z-10 grid min-h-svh grid-cols-1 items-center gap-12 px-6 pb-16 pt-28 lg:grid-cols-2 lg:gap-8 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, scale: 1.02 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto aspect-[4/5] w-full max-w-sm lg:mx-0 lg:aspect-auto lg:h-[72vh] lg:max-w-none"
-        >
-          <Image
-            src="/photography/hero-pour.jpg"
-            alt="La N de Nordice tallada en cristal, junto a un whisky recién servido sobre hielo."
-            fill
-            sizes="(min-width: 1024px) 45vw, 90vw"
-            className="object-cover"
-            priority
-          />
-        </motion.div>
+      <motion.div
+        initial={{ opacity: 0, scale: 1.02 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute left-0 right-0 top-24 z-[1] h-[46vh] sm:h-[52vh] lg:inset-x-auto lg:bottom-0 lg:left-0 lg:right-1/2 lg:top-24 lg:h-auto"
+      >
+        <Image
+          src="/photography/hero-pour.jpg"
+          alt="La N de Nordice tallada en cristal, junto a un whisky recién servido sobre hielo."
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="object-cover"
+          priority
+        />
+        {/* Fusión con el fondo: abajo en mobile, a la derecha en desktop */}
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-deep to-transparent lg:inset-y-0 lg:left-auto lg:right-0 lg:h-auto lg:w-32 lg:bg-gradient-to-l" />
+      </motion.div>
+
+      <div className="relative z-10 flex min-h-svh flex-col justify-end px-6 pb-16 pt-[46vh] sm:pt-[52vh] lg:grid lg:grid-cols-2 lg:items-center lg:justify-normal lg:gap-8 lg:px-10 lg:pb-16 lg:pt-0">
+        <div aria-hidden="true" className="hidden lg:block" />
 
         <motion.div
           initial="hidden"
@@ -60,8 +57,7 @@ export function Hero() {
                 copia de seguridad en /assets-originals). `unoptimized`:
                 el optimizador de imágenes de Next reencodea a WebP/AVIF y
                 aplana el canal alfa a opaco en esta versión; se sirve el
-                PNG tal cual para conservarla. Sin ícono N encima: la
-                referencia no lo trae ahí — la N ya está en la foto. */}
+                PNG tal cual para conservarla. */}
             <Image
               src="/brand/wordmark.png"
               alt={hero.brandName}
@@ -69,11 +65,11 @@ export function Hero() {
               height={724}
               priority
               unoptimized
-              className="mx-auto h-auto w-full max-w-md select-none lg:mx-0"
+              className="mx-auto h-auto w-full max-w-xl select-none lg:mx-0"
             />
           </motion.h1>
 
-          <motion.div variants={fadeUp} className="mt-2 w-full max-w-md">
+          <motion.div variants={fadeUp} className="mt-3 w-full max-w-xl">
             {/* Firma caligráfica original, con el mismo tratamiento que
                 tenía antes (transparencia real, sin optimizador de Next
                 por el bug de alfa en WebP/AVIF — ver /assets-originals). */}
