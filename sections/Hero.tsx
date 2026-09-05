@@ -91,7 +91,8 @@ export function Hero() {
         </motion.a>
       </motion.div>
 
-      <motion.div
+      <motion.a
+        href="#origen"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 1.2 }}
@@ -106,7 +107,7 @@ export function Hero() {
           animate={{ scaleY: [0.3, 1, 0.3] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         />
-      </motion.div>
+      </motion.a>
     </section>
   );
 }

@@ -15,6 +15,10 @@ export const hero = {
   scrollHint: "Descubrir el origen",
 };
 
+export const origin = {
+  kicker: "El origen",
+};
+
 export const product = {
   kicker: "El producto",
   title: "Formatos",
