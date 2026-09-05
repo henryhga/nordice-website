@@ -45,19 +45,23 @@ export function Product() {
         <div className="mt-20 grid grid-cols-1 gap-x-8 gap-y-20 md:grid-cols-3">
           {product.items.map((item) => (
             <motion.div key={item.name} variants={fadeUp} className="flex flex-col">
-              <div className="relative aspect-square w-full overflow-hidden bg-ink-deep">
-                <Image
-                  src={item.image}
-                  alt={`Nordice — formato ${item.name}, ${item.spec}`}
-                  fill
-                  sizes="(min-width: 768px) 33vw, 100vw"
-                  className="object-cover"
-                />
+              {/* Fotos reducidas ~40% respecto al ancho de columna, con
+                  más espacio negativo alrededor de cada objeto. */}
+              <div className="mx-auto w-[60%]">
+                <div className="relative aspect-square w-full overflow-hidden bg-ink-deep">
+                  <Image
+                    src={item.image}
+                    alt={`Nordice — formato ${item.name}, ${item.spec}`}
+                    fill
+                    sizes="(min-width: 768px) 20vw, 60vw"
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="mt-6 font-serif text-xl text-ice">{item.name}</h3>
+                <p className="mt-1 text-xs uppercase tracking-[0.2em] text-platinum-dim">
+                  {item.spec}
+                </p>
               </div>
-              <h3 className="mt-6 font-serif text-xl text-ice">{item.name}</h3>
-              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-platinum-dim">
-                {item.spec}
-              </p>
             </motion.div>
           ))}
         </div>

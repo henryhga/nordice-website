@@ -31,7 +31,7 @@ export function stagger(delayChildren = 0.15, staggerChildren = 0.18): Variants 
 // Revelado de izquierda a derecha para el tríptico. `revealTransition` se
 // exporta aparte para que un elemento acompañante (la línea de barrido)
 // pueda animarse en el mismo tiempo exacto.
-export const revealDurationSeconds = 2.6;
+export const revealDurationSeconds = 10;
 
 export const revealTransition: Transition = {
   duration: revealDurationSeconds,

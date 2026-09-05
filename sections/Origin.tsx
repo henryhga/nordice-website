@@ -23,7 +23,7 @@ export function Origin() {
       aria-label="El origen"
       className="bg-ink-deep px-6 py-32 md:py-40"
     >
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-lg">
         <motion.span
           initial="hidden"
           whileInView="visible"
