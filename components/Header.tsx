@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { nav } from "@/content/copy";
+import { NavIceN } from "@/components/three/NavIceNClient";
 
 // Cromo persistente: logotipo en texto (la textura metálica del asset
 // real solo resuelve bien a tamaño grande, se reserva para el hero y el
@@ -10,8 +11,9 @@ export function Header() {
     <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-6 md:px-10">
       <Link
         href="#inicio"
-        className="font-serif text-lg tracking-[0.2em] text-ice"
+        className="flex items-center gap-3 font-serif text-lg tracking-[0.2em] text-ice"
       >
+        <NavIceN />
         NORDICE
       </Link>
 

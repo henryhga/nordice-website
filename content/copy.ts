@@ -11,8 +11,11 @@ export const site = {
 export const hero = {
   brandName: "Nordice",
   sub: "Hielo nacido de la pureza del norte.",
+  subtext: "Hielo transparente para coctelería",
   cta: "Descubre nuestro proceso",
   ctaHref: "#proceso",
+  scrollHint: "Desliza para descubrir",
+  scrollHintHref: "#esencia",
 };
 
 export const nav = {
