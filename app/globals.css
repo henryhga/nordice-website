@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  /* Nordice — paleta de marca (negro/blanco/plata, azul glaciar como acento mínimo) */
-  --color-ink: #0a0a0b;
-  --color-ink-deep: #050506;
-  --color-ice: #f4f5f3;
-  --color-platinum: #b9c0c4;
-  --color-platinum-dim: #6d7477;
-  --color-glacier: #4a5a66;
+  /* Nordice — paleta de marca: negro profundo dominante, plata para
+     identidad/titulares, dorado cálido como acento puntual, azul hielo
+     muy suave para reflejos ambientales discretos. */
+  --color-ink: #0a0b0d;
+  --color-ink-deep: #050608;
+  --color-ice: #c4c8ca;
+  --color-platinum: #c4c8ca;
+  --color-platinum-dim: #888d90;
+  --color-glacier: #afc6d6;
+  --color-gold: #d9b16a;
 }
 
 @theme inline {
@@ -17,6 +20,7 @@
   --color-platinum: var(--color-platinum);
   --color-platinum-dim: var(--color-platinum-dim);
   --color-glacier: var(--color-glacier);
+  --color-gold: var(--color-gold);
 
   --font-serif: var(--font-fraunces);
   --font-sans: var(--font-manrope);

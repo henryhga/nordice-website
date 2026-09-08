@@ -4,58 +4,87 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { product } from "@/content/copy";
 import { fadeUp, stagger } from "@/lib/motion";
+import { useRequestModal } from "@/components/modal/RequestModalContext";
 
-// Renders reales (recortados de la referencia del cliente, ver
-// public/illustrations) — tarjetas con borde fino. Hover en plata, nunca
-// dorado: son piezas de hielo, no whisky (el ámbar se reserva para el
-// líquido real en foto).
+// Fondo real recortado de la referencia del cliente (los 4 objetos sobre
+// el mismo piso continuo, ver public/photography/product-scene.jpg) — el
+// recorte excluye el título y las etiquetas horneadas del mockup; ambos
+// se reconstruyen como texto real. Los porcentajes `left` de cada
+// etiqueta se midieron sobre los píxeles de la imagen original (centro
+// de cada objeto), no son un valor arbitrario.
+const labelPositions = ["17%", "38%", "60%", "82%"];
+
 export function Product() {
+  const { openAvailability } = useRequestModal();
+
   return (
     <section
       id="producto"
       aria-label="Nuestros productos"
-      className="bg-ink-deep px-6 py-20 md:py-28"
+      className="bg-ink-deep px-6 py-20 sm:px-10 md:py-28 lg:px-24"
     >
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={stagger()}
-        className="mx-auto max-w-6xl"
+        className="mx-auto max-w-[1900px]"
       >
+        <motion.span
+          variants={fadeUp}
+          className="block text-center text-xs font-medium uppercase tracking-[0.3em] text-platinum"
+        >
+          {product.kicker}
+        </motion.span>
+
         <motion.h2
           variants={fadeUp}
-          className="text-center font-serif text-3xl font-normal text-ice sm:text-4xl"
+          className="mt-6 text-center font-serif text-4xl font-normal text-ice sm:text-6xl lg:text-7xl"
         >
           {product.title}
         </motion.h2>
-        <motion.div
-          variants={fadeUp}
-          className="mx-auto mt-5 h-px w-10 bg-platinum/40"
-        />
 
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {product.items.map((item) => (
-            <motion.div
+        <motion.p variants={fadeUp} className="mt-3 text-center text-sm text-platinum-dim">
+          {product.subtitle}
+        </motion.p>
+
+        <motion.div variants={fadeUp} className="relative mt-14 aspect-[1672/325] w-full">
+          <Image
+            src="/photography/product-scene.jpg"
+            alt="Los cuatro productos Nordice — Collins, cubo 2×2, esfera y cubo 2×1.75 — sobre la misma superficie."
+            fill
+            sizes="(min-width: 1024px) 1152px, 100vw"
+            className="object-contain"
+          />
+        </motion.div>
+
+        <div className="relative mt-4 h-16 sm:h-8">
+          {product.items.map((item, index) => (
+            <button
               key={item.id}
-              variants={fadeUp}
-              className="group flex flex-col items-center border border-platinum/15 px-6 py-10 text-center transition-colors duration-500 hover:border-platinum/50"
+              type="button"
+              onClick={() => openAvailability(`${item.name} ${item.spec}`)}
+              aria-label={`Consultar disponibilidad: ${item.name} ${item.spec}. ${item.description}`}
+              style={{ left: labelPositions[index] }}
+              className="group absolute top-0 -translate-x-1/2 whitespace-nowrap text-center transition-colors duration-500"
             >
-              <Image
-                src={item.image}
-                alt={`${item.name} ${item.spec}`}
-                width={161}
-                height={145}
-                unoptimized
-                className="h-24 w-auto object-contain transition-transform duration-500 group-hover:-translate-y-1"
-              />
-              <h3 className="mt-6 font-serif text-base uppercase tracking-[0.06em] text-ice">
-                {item.name} {item.spec}
-              </h3>
-              <p className="mt-3 text-sm text-platinum-dim">{item.description}</p>
-            </motion.div>
+              <span className="block font-serif text-sm uppercase tracking-[0.06em] text-ice group-hover:text-platinum sm:text-base">
+                {item.name}
+              </span>
+              <span className="mt-0.5 block text-xs text-platinum-dim">{item.spec}</span>
+            </button>
           ))}
         </div>
+
+        <motion.div variants={fadeUp} className="mt-14 flex justify-center">
+          <button
+            type="button"
+            onClick={() => openAvailability()}
+            className="inline-flex items-center gap-3 border border-platinum/30 px-8 py-4 text-xs uppercase tracking-[0.25em] text-ice transition-colors duration-500 hover:border-platinum hover:bg-ice/5"
+          >
+            {product.cta}
+          </button>
+        </motion.div>
       </motion.div>
     </section>
   );

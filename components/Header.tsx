@@ -1,11 +1,15 @@
 import Link from "next/link";
+import Image from "next/image";
 import { nav } from "@/content/copy";
-import { NavIceN } from "@/components/three/NavIceNClient";
+import { HeaderCta } from "@/components/HeaderCta";
 
-// Cromo persistente: logotipo en texto (la textura metálica del asset
-// real solo resuelve bien a tamaño grande, se reserva para el hero y el
-// footer). Nav completa desde `lg`; en mobile/tablet solo logo + botón —
-// 5 enlaces + botón no caben en una pantalla angosta sin romperse.
+// Ícono N facetado real (recortado del asset de marca original, ver
+// public/brand/n-mark.png) — igual al de las 5 fotos de referencia, no
+// un render 3D. Nav completa desde `lg`; en mobile/tablet solo logo +
+// botón — 5 enlaces + botón no caben en una pantalla angosta sin
+// romperse. Logo / nav / botón son 3 hijos directos en `justify-between`
+// (no nav+botón agrupados) para que el nav quede centrado entre ambos,
+// igual que en la referencia — no pegado al botón.
 export function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-6 md:px-10">
@@ -13,30 +17,30 @@ export function Header() {
         href="#inicio"
         className="flex items-center gap-3 font-serif text-lg tracking-[0.2em] text-ice"
       >
-        <NavIceN />
+        <Image
+          src="/brand/n-mark.png"
+          alt=""
+          width={785}
+          height={914}
+          unoptimized
+          className="h-8 w-auto select-none"
+        />
         NORDICE
       </Link>
 
-      <div className="flex items-center gap-10">
-        <nav aria-label="Principal" className="hidden items-center gap-8 lg:flex">
-          {nav.items.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="whitespace-nowrap text-[11px] uppercase tracking-[0.25em] text-platinum transition-colors duration-500 hover:text-ice"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+      <nav aria-label="Principal" className="hidden items-center gap-16 lg:flex">
+        {nav.items.map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
+            className="whitespace-nowrap text-[11px] uppercase tracking-[0.25em] text-platinum transition-colors duration-500 hover:text-ice"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
 
-        <a
-          href="#contacto"
-          className="whitespace-nowrap border border-platinum/30 px-5 py-2.5 text-[11px] uppercase tracking-[0.25em] text-ice transition-colors duration-500 hover:border-platinum hover:bg-ice/[0.08]"
-        >
-          {nav.cta}
-        </a>
-      </div>
+      <HeaderCta />
     </header>
   );
 }

@@ -5,61 +5,78 @@ import { motion } from "framer-motion";
 import { essence } from "@/content/copy";
 import { fadeUp, stagger } from "@/lib/motion";
 
-// Ilustraciones reales (recortadas de la referencia del cliente, ver
-// public/illustrations) — no íconos de librería ni redibujados a
-// criterio. Separadores verticales finos solo desde desktop.
+// Fondo real recortado de la referencia del cliente (montaña + lago +
+// cubo transparente, ver public/photography/essence-scene.jpg) sangrando
+// por el borde derecho; el texto propio del mockup nunca se incluyó en
+// el recorte (se cortó del lado izquierdo), así que no hay nada que
+// tapar — el texto real vive en una columna plana a la izquierda con un
+// degradado de transición hacia la foto.
 export function Essence() {
   return (
     <section
       id="esencia"
       aria-label="Nuestra esencia"
-      className="bg-ink-deep px-6 py-20 md:py-28"
+      className="relative min-h-[46rem] w-full overflow-hidden bg-ink-deep px-6 py-20 sm:px-10 md:py-28 lg:px-24"
     >
+      <div className="absolute inset-y-0 right-0 hidden w-[46%] sm:block">
+        <Image
+          src="/photography/essence-scene.jpg"
+          alt="Cubo de hielo transparente Nordice frente a montañas nevadas."
+          fill
+          sizes="46vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-ink-deep to-transparent" />
+      </div>
+
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.4 }}
         variants={stagger()}
-        className="mx-auto max-w-6xl"
+        className="relative z-10 flex max-w-md flex-col justify-center sm:max-w-3xl sm:min-h-[38rem]"
       >
+        <motion.span
+          variants={fadeUp}
+          className="block text-xs font-medium uppercase tracking-[0.3em] text-platinum"
+        >
+          {essence.kicker}
+        </motion.span>
+
         <motion.h2
           variants={fadeUp}
-          className="text-center font-serif text-3xl font-normal text-ice sm:text-4xl"
+          className="mt-6 font-serif text-4xl font-normal leading-[1.15] text-ice sm:whitespace-nowrap sm:text-6xl lg:text-7xl"
         >
-          {essence.title}
+          {essence.title[0]}
+          <br />
+          {essence.title[1]}
         </motion.h2>
-        <motion.div
-          variants={fadeUp}
-          className="mx-auto mt-5 h-px w-10 bg-platinum/40"
-        />
 
-        <div className="mt-14 grid grid-cols-1 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-          {essence.items.map((item, index) => (
-            <motion.div
-              key={item.name}
-              variants={fadeUp}
-              className={`flex flex-col items-center px-6 text-center ${
-                index !== 0 ? "lg:border-l lg:border-platinum/10" : ""
-              }`}
-            >
-              <Image
-                src={item.image}
-                alt={item.name}
-                width={121}
-                height={81}
-                unoptimized
-                className="h-12 w-auto object-contain"
-              />
-              <h3 className="mt-6 font-serif text-base uppercase tracking-[0.1em] text-ice">
-                {item.name}
-              </h3>
-              <p className="mt-3 max-w-[220px] text-sm text-platinum-dim">
-                {item.description}
-              </p>
-            </motion.div>
+        <motion.p variants={fadeUp} className="mt-6 max-w-sm text-sm text-platinum-dim md:text-base">
+          {essence.body}
+        </motion.p>
+
+        <motion.p
+          variants={fadeUp}
+          className="mt-10 flex flex-wrap gap-x-8 gap-y-2 text-xs uppercase tracking-[0.3em] text-platinum-dim"
+        >
+          {essence.values.map((value) => (
+            <span key={value}>{value}</span>
           ))}
-        </div>
+        </motion.p>
       </motion.div>
+
+      <div className="mt-10 sm:hidden">
+        <div className="relative aspect-square w-full">
+          <Image
+            src="/photography/essence-scene.jpg"
+            alt="Cubo de hielo transparente Nordice frente a montañas nevadas."
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+      </div>
     </section>
   );
 }

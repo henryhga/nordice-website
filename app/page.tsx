@@ -5,11 +5,11 @@ import { Essence } from "@/sections/Essence";
 import { Process } from "@/sections/Process";
 import { Experience } from "@/sections/Experience";
 import { Product } from "@/sections/Product";
-import { Contact } from "@/sections/Contact";
+import { RequestModalProvider } from "@/components/modal/RequestModalContext";
 
 export default function Home() {
   return (
-    <>
+    <RequestModalProvider>
       <Header />
       <main className="flex-1">
         <Hero />
@@ -17,9 +17,8 @@ export default function Home() {
         <Process />
         <Experience />
         <Product />
-        <Contact />
       </main>
       <Footer />
-    </>
+    </RequestModalProvider>
   );
 }
