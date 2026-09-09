@@ -72,6 +72,8 @@ export const product = {
   title: "Nuestros productos",
   subtitle: "Cuatro formas. Una misma esencia.",
   cta: "Consultar disponibilidad",
+  sheetCta: "Disponibilidad del producto",
+  view360: "Ver",
   items: [
     {
       id: "collins",
@@ -79,6 +81,11 @@ export const product = {
       spec: "4 × 1.25\"",
       description: "Elegancia alargada para cócteles refinados y sofisticados.",
       image: "/illustrations/product-collins.png",
+      // Foto de estudio en alta resolución (1254×1254, fondo oscuro
+      // limpio, sin texto horneado) — la usan la ficha, el visor 360° y
+      // el comparador. Es una sola fotografía por producto, no una
+      // secuencia multiángulo real; ver nota en Product360Viewer.
+      photo: "/products/collins.png",
     },
     {
       id: "cubo-2x2",
@@ -86,6 +93,7 @@ export const product = {
       spec: "2 × 2\"",
       description: "El clásico perfecto para una experiencia equilibrada.",
       image: "/illustrations/product-cubo2x2.png",
+      photo: "/products/cubo.png",
     },
     {
       id: "esfera",
@@ -93,6 +101,7 @@ export const product = {
       spec: "Ø 2\"",
       description: "Esferas cristalinas que aportan distinción y estilo.",
       image: "/illustrations/product-esfera.png",
+      photo: "/products/esfera.png",
     },
     {
       id: "cubo-2x1.75",
@@ -100,6 +109,10 @@ export const product = {
       spec: "2 × 1.75\"",
       description: "Versatilidad y claridad para cada creación.",
       image: "/illustrations/product-cubo2x175.png",
+      // Recurso provisional: no existe todavía una foto de estudio
+      // propia para este formato — reutiliza la del cubo 2×2 hasta que
+      // se fotografíe el 2×1.75 por separado.
+      photo: "/products/cubo.png",
     },
   ],
 } as const;

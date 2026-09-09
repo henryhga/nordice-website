@@ -1,9 +1,11 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { hero } from "@/content/copy";
 import { fadeUp, stagger } from "@/lib/motion";
+import { useIsMobile, usePrefersReducedMotion } from "@/lib/useMediaQuery";
 
 // Una sola foto panorámica continua (montaña + piso + botella, recorte
 // completo de la referencia del cliente — ver
@@ -13,14 +15,39 @@ import { fadeUp, stagger } from "@/lib/motion";
 // tapa el texto horneado del mockup y deja lugar al texto real (HTML)
 // sin cortar la escena — montaña y botella quedan conectadas por el
 // mismo piso/cielo continuo, igual que en la referencia.
+//
+// Paisaje que responde al scroll: la montaña (fondo) y un fragmento de
+// hielo (primer plano decorativo, /products/cubo.png — la misma foto de
+// estudio que usan la ficha/360°/comparador) se mueven a velocidades
+// distintas atadas al progreso de scroll de esta sección — sin pin ni
+// scroll-jacking, el desplazamiento nativo de la página sigue intacto.
+// El texto nunca lleva transform de scroll: se mantiene estable.
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
+  const reduceMotion = usePrefersReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const intensity = reduceMotion ? 0 : isMobile ? 0.45 : 1;
+
+  const mountainY = useTransform(scrollYProgress, [0, 1], [0, -48 * intensity]);
+  const mountainScale = useTransform(scrollYProgress, [0, 1], [1, 1 + 0.05 * intensity]);
+  const iceY = useTransform(scrollYProgress, [0, 1], [30 * intensity, -70 * intensity]);
+  const iceScale = useTransform(scrollYProgress, [0, 1], [0.9, 0.9 + 0.14 * intensity]);
+  const iceOpacity = useTransform(scrollYProgress, [0, 0.55], [reduceMotion ? 0.5 : 0.18, 0.5]);
+
   return (
     <section
+      ref={sectionRef}
       id="inicio"
       aria-label="Presentación"
       className="relative min-h-svh w-full overflow-hidden bg-ink-deep"
     >
-      <div className="absolute inset-0 hidden sm:block">
+      <motion.div style={{ y: mountainY, scale: mountainScale }} className="absolute inset-0 hidden sm:block">
         <Image
           src="/photography/hero-full.jpg"
           alt="Montañas nevadas junto a un lago, con una botella y un vaso de whisky con hielo Nordice bajo luz dorada."
@@ -36,9 +63,9 @@ export function Hero() {
               "linear-gradient(to right, transparent 0%, transparent 6%, var(--color-ink-deep) 24%, var(--color-ink-deep) 68%, transparent 86%, transparent 100%)",
           }}
         />
-      </div>
+      </motion.div>
 
-      <div className="absolute inset-x-0 bottom-0 h-40 sm:hidden">
+      <motion.div style={{ y: mountainY }} className="absolute inset-x-0 bottom-0 h-40 sm:hidden">
         <Image
           src="/photography/hero-bottle.jpg"
           alt="Botella y vaso Nordice con luz dorada."
@@ -48,7 +75,23 @@ export function Hero() {
           priority
         />
         <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-ink-deep to-transparent" />
-      </div>
+      </motion.div>
+
+      <motion.div
+        aria-hidden="true"
+        style={{ y: iceY, scale: iceScale, opacity: iceOpacity }}
+        className="pointer-events-none absolute bottom-0 left-0 z-[1] hidden h-64 w-64 sm:block lg:h-80 lg:w-80"
+      >
+        <div
+          className="relative h-full w-full"
+          style={{
+            maskImage: "radial-gradient(closest-side, black 50%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(closest-side, black 50%, transparent 100%)",
+          }}
+        >
+          <Image src="/products/cubo.png" alt="" fill sizes="20rem" className="object-contain" />
+        </div>
+      </motion.div>
 
       <div className="relative z-10 flex min-h-svh flex-col items-center justify-center px-6 pb-24 pt-24 text-center">
         <motion.div

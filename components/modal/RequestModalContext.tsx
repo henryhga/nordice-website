@@ -1,7 +1,15 @@
 "use client";
 
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
 import { RequestModalDialog } from "./RequestModalDialog";
+import {
+  addSampleProduct,
+  getSampleSelectionServerSnapshot,
+  getSampleSelectionSnapshot,
+  removeSampleProduct,
+  subscribeSampleSelection,
+  toggleSampleProduct,
+} from "@/lib/sampleSelectionStore";
 
 export type RequestModalMode = "sample" | "availability";
 
@@ -16,6 +24,9 @@ interface RequestModalContextValue {
   openSample: (product?: string) => void;
   openAvailability: (product?: string) => void;
   close: () => void;
+  sampleSelection: string[];
+  toggleSampleProduct: (product: string) => void;
+  removeSampleProduct: (product: string) => void;
 }
 
 const RequestModalContext = createContext<RequestModalContextValue | null>(null);
@@ -23,11 +34,20 @@ const RequestModalContext = createContext<RequestModalContextValue | null>(null)
 // Un solo modal compartido por todo el sitio (header, experiencia,
 // productos) en vez de un formulario por sección — evita duplicar la
 // lógica de envío y mantiene el mismo diseño accesible en todos lados.
+// La selección de productos para "muestra" vive en un store aparte
+// (lib/sampleSelectionStore) para que sobreviva a cerrar y reabrir el
+// modal, o a navegar por la página, tal como pide el brief.
 export function RequestModalProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<RequestModalState>({ isOpen: false, mode: "sample", key: 0 });
+  const sampleSelection = useSyncExternalStore(
+    subscribeSampleSelection,
+    getSampleSelectionSnapshot,
+    getSampleSelectionServerSnapshot,
+  );
 
   const openSample = useCallback((product?: string) => {
-    setState((s) => ({ isOpen: true, mode: "sample", product, key: s.key + 1 }));
+    if (product) addSampleProduct(product);
+    setState((s) => ({ isOpen: true, mode: "sample", key: s.key + 1 }));
   }, []);
 
   const openAvailability = useCallback((product?: string) => {
@@ -38,7 +58,17 @@ export function RequestModalProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, isOpen: false }));
   }, []);
 
-  const value = useMemo(() => ({ openSample, openAvailability, close }), [openSample, openAvailability, close]);
+  const value = useMemo(
+    () => ({
+      openSample,
+      openAvailability,
+      close,
+      sampleSelection,
+      toggleSampleProduct,
+      removeSampleProduct,
+    }),
+    [openSample, openAvailability, close, sampleSelection],
+  );
 
   return (
     <RequestModalContext.Provider value={value}>
