@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { experience } from "@/content/copy";
 import { fadeUp, stagger } from "@/lib/motion";
-import { useRequestModal } from "@/components/modal/RequestModalContext";
+import { useComingSoon } from "@/components/modal/ComingSoonContext";
 
 // Fondo real recortado de la referencia del cliente (botella + vaso bajo
 // + vaso Collins, ver public/photography/experience-scene.jpg) sangrando
@@ -12,7 +12,7 @@ import { useRequestModal } from "@/components/modal/RequestModalContext";
 // texto horneada del mockup (vivía sobre fondo negro plano a la derecha),
 // así que el texto real ocupa esa misma columna sin superponerse a nada.
 export function Experience() {
-  const { openSample } = useRequestModal();
+  const { open } = useComingSoon();
 
   return (
     <section
@@ -84,7 +84,7 @@ export function Experience() {
           <motion.button
             type="button"
             variants={fadeUp}
-            onClick={() => openSample()}
+            onClick={open}
             className="mt-12 inline-flex items-center gap-3 border border-platinum/30 px-8 py-4 text-xs uppercase tracking-[0.25em] text-ice transition-colors duration-500 hover:border-platinum hover:bg-ice/5"
           >
             {experience.cta}

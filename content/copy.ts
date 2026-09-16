@@ -25,7 +25,22 @@ export const nav = {
     { label: "Experiencia", href: "#experiencia" },
     { label: "Productos", href: "#producto" },
   ],
-  cta: "Solicitar muestra",
+  cta: "Coming Soon",
+} as const;
+
+// Nordice todavía no lanzó — este mensaje reemplaza cualquier CTA que
+// antes pedía "solicitar muestra". El botón final abre WhatsApp con un
+// mensaje de "quiero unirme a la lista", igual que el resto de los
+// formularios del sitio (sin backend de email/CRM todavía).
+export const comingSoon = {
+  eyebrow: "Coming soon",
+  headline: "Great cocktails begin with great ice.",
+  body: "Ice shapes a cocktail's temperature, dilution and balance. At Nordice, we give this essential ingredient the attention it deserves.",
+  origin: "Born from the purity of the North. Coming to Miami.",
+  timeline: "Launching late 2026.",
+  invite:
+    "Be part of our story from the beginning. Join our list for launch updates and be the first to know when orders open.",
+  cta: "Be part of Nordice",
 } as const;
 
 export const essence = {
@@ -64,7 +79,7 @@ export const experience = {
   title: ["El hielo también", "define el momento."],
   intro: "Una presencia impecable para bares, restaurantes y momentos especiales.",
   categories: ["Para tu negocio", "Para tu ocasión"],
-  cta: "Solicitar muestra",
+  cta: "Coming Soon",
 } as const;
 
 export const product = {
@@ -82,9 +97,9 @@ export const product = {
       description: "Elegancia alargada para cócteles refinados y sofisticados.",
       image: "/illustrations/product-collins.png",
       // Foto de estudio en alta resolución (1254×1254, fondo oscuro
-      // limpio, sin texto horneado) — la usan la ficha, el visor 360° y
-      // el comparador. Es una sola fotografía por producto, no una
-      // secuencia multiángulo real; ver nota en Product360Viewer.
+      // limpio, sin texto horneado) — la usa el visor de detalle. Es una
+      // sola fotografía por producto, no una secuencia multiángulo real;
+      // ver nota en Product360Viewer.
       photo: "/products/collins.png",
     },
     {

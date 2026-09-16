@@ -4,22 +4,14 @@ import { useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { contact, product } from "@/content/copy";
 import { useDialogBehavior } from "@/lib/useDialogBehavior";
-import { useRequestModal, type RequestModalMode } from "./RequestModalContext";
-import { clearSampleSelection } from "@/lib/sampleSelectionStore";
 
 const productOptions = [...product.items.map((item) => `${item.name} ${item.spec}`), "No estoy seguro / varios"];
 
 interface RequestModalDialogProps {
   isOpen: boolean;
-  mode: RequestModalMode;
   product?: string;
   onClose: () => void;
 }
-
-const copyByMode: Record<RequestModalMode, { title: string; submitLabel: string }> = {
-  sample: { title: "Solicitar muestra", submitLabel: "Enviar solicitud" },
-  availability: { title: "Consultar disponibilidad", submitLabel: "Consultar por WhatsApp" },
-};
 
 type SubmitStatus = "idle" | "submitting" | "sent" | "error";
 
@@ -28,35 +20,32 @@ type SubmitStatus = "idle" | "submitting" | "sent" | "error";
 // directo — funcional hoy, no un envío que se pierde en el vacío. Cuando
 // haya un servicio de email/CRM, este handler es lo único que cambia.
 function buildWhatsAppMessage(fields: {
-  mode: RequestModalMode;
   name: string;
   occasion: string;
   contactMethod: string;
-  productsOfInterest: string[];
+  productOfInterest: string;
   message: string;
 }) {
-  const intro = fields.mode === "sample" ? "Quisiera solicitar una muestra." : "Quisiera consultar disponibilidad.";
   const lines = [
     `Hola Nordice, soy ${fields.name || "—"}.`,
-    intro,
+    "Quisiera consultar disponibilidad.",
     fields.occasion && `Negocio / ocasión: ${fields.occasion}`,
-    fields.productsOfInterest.length > 0 && `Producto(s) de interés: ${fields.productsOfInterest.join(", ")}`,
+    fields.productOfInterest && `Producto de interés: ${fields.productOfInterest}`,
     fields.contactMethod && `Prefiero que me contacten por: ${fields.contactMethod}`,
     fields.message && `Mensaje: ${fields.message}`,
   ].filter(Boolean);
   return encodeURIComponent(lines.join("\n"));
 }
 
-export function RequestModalDialog({ isOpen, mode, product: presetProduct, onClose }: RequestModalDialogProps) {
+export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: RequestModalDialogProps) {
   // El padre remonta este componente con una `key` nueva cada vez que se
   // abre (ver RequestModalContext), así que el estado inicial derivado de
   // `presetProduct` ya nace correcto — sin necesidad de resetearlo con un
   // setState dentro de un efecto.
-  const { sampleSelection, toggleSampleProduct, removeSampleProduct } = useRequestModal();
   const [name, setName] = useState("");
   const [occasion, setOccasion] = useState("");
   const [contactMethod, setContactMethod] = useState("");
-  const [availabilityProduct, setAvailabilityProduct] = useState(presetProduct ?? "");
+  const [productOfInterest, setProductOfInterest] = useState(presetProduct ?? "");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [formError, setFormError] = useState<string | null>(null);
@@ -64,19 +53,11 @@ export function RequestModalDialog({ isOpen, mode, product: presetProduct, onClo
 
   useDialogBehavior(isOpen, onClose, firstFieldRef);
 
-  const productsOfInterest = mode === "sample" ? sampleSelection : availabilityProduct ? [availabilityProduct] : [];
-
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setFormError(null);
-
-    if (mode === "sample" && sampleSelection.length === 0) {
-      setFormError("Selecciona al menos un producto para tu muestra.");
-      return;
-    }
-
     setStatus("submitting");
-    const text = buildWhatsAppMessage({ mode, name, occasion, contactMethod, productsOfInterest, message });
+    const text = buildWhatsAppMessage({ name, occasion, contactMethod, productOfInterest, message });
 
     let win: Window | null = null;
     try {
@@ -94,7 +75,6 @@ export function RequestModalDialog({ isOpen, mode, product: presetProduct, onClo
     }
 
     setStatus("sent");
-    if (mode === "sample") clearSampleSelection();
   }
 
   const inputClass =
@@ -141,12 +121,12 @@ export function RequestModalDialog({ isOpen, mode, product: presetProduct, onClo
             </button>
 
             <h2 id="request-modal-title" className="font-serif text-2xl font-normal text-ice sm:text-3xl">
-              {copyByMode[mode].title}
+              Consultar disponibilidad
             </h2>
 
             {status === "sent" ? (
               <p className="mt-8 text-sm text-platinum-dim">
-                Te estamos redirigiendo a WhatsApp para enviar tu solicitud. Si no se abrió, escríbenos directo a{" "}
+                Te estamos redirigiendo a WhatsApp para enviar tu consulta. Si no se abrió, escríbenos directo a{" "}
                 <a href={contact.whatsapp.href} className="text-ice underline underline-offset-4">
                   {contact.whatsapp.value}
                 </a>
@@ -182,73 +162,26 @@ export function RequestModalDialog({ isOpen, mode, product: presetProduct, onClo
                   />
                 </div>
 
-                {mode === "sample" ? (
-                  <fieldset>
-                    <legend className={labelClass}>Productos de interés</legend>
-
-                    {sampleSelection.length > 0 && (
-                      <ul className="mb-3 flex flex-wrap gap-2">
-                        {sampleSelection.map((selected) => (
-                          <li
-                            key={selected}
-                            className="flex items-center gap-2 border border-platinum/30 py-1.5 pl-3 pr-2 text-xs text-ice"
-                          >
-                            {selected}
-                            <button
-                              type="button"
-                              onClick={() => removeSampleProduct(selected)}
-                              aria-label={`Quitar ${selected}`}
-                              className="text-platinum-dim transition-colors duration-500 hover:text-ice"
-                            >
-                              ✕
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    <div className="flex flex-col gap-3">
-                      {productOptions.map((option) => {
-                        const checked = sampleSelection.includes(option);
-                        return (
-                          <label
-                            key={option}
-                            className="flex min-h-[2.75rem] cursor-pointer items-center gap-3 text-sm text-platinum-dim transition-colors duration-500 hover:text-ice"
-                          >
-                            <input
-                              type="checkbox"
-                              checked={checked}
-                              onChange={() => toggleSampleProduct(option)}
-                              className="h-4 w-4 shrink-0 accent-platinum"
-                            />
-                            <span className={checked ? "text-ice" : ""}>{option}</span>
-                          </label>
-                        );
-                      })}
-                    </div>
-                  </fieldset>
-                ) : (
-                  <div>
-                    <label htmlFor="request-product" className={labelClass}>
-                      Producto de interés
-                    </label>
-                    <select
-                      id="request-product"
-                      value={availabilityProduct}
-                      onChange={(e) => setAvailabilityProduct(e.target.value)}
-                      className={`${inputClass} appearance-none bg-ink-deep`}
-                    >
-                      <option value="" className="bg-ink-deep">
-                        Seleccionar…
+                <div>
+                  <label htmlFor="request-product" className={labelClass}>
+                    Producto de interés
+                  </label>
+                  <select
+                    id="request-product"
+                    value={productOfInterest}
+                    onChange={(e) => setProductOfInterest(e.target.value)}
+                    className={`${inputClass} appearance-none bg-ink-deep`}
+                  >
+                    <option value="" className="bg-ink-deep">
+                      Seleccionar…
+                    </option>
+                    {productOptions.map((option) => (
+                      <option key={option} value={option} className="bg-ink-deep">
+                        {option}
                       </option>
-                      {productOptions.map((option) => (
-                        <option key={option} value={option} className="bg-ink-deep">
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                )}
+                    ))}
+                  </select>
+                </div>
 
                 <div>
                   <label htmlFor="request-contact" className={labelClass}>
@@ -285,7 +218,7 @@ export function RequestModalDialog({ isOpen, mode, product: presetProduct, onClo
                 )}
 
                 <p className="text-[11px] leading-relaxed text-platinum-dim/70">
-                  Tu solicitud se envía por WhatsApp a {contact.whatsapp.value}. La integración de email o CRM
+                  Tu consulta se envía por WhatsApp a {contact.whatsapp.value}. La integración de email o CRM
                   todavía no está configurada.
                 </p>
 
@@ -294,7 +227,7 @@ export function RequestModalDialog({ isOpen, mode, product: presetProduct, onClo
                   disabled={status === "submitting"}
                   className="mt-2 inline-flex items-center justify-center gap-3 border border-platinum/30 px-8 py-4 text-xs uppercase tracking-[0.25em] text-ice transition-colors duration-500 hover:border-platinum hover:bg-ice/5 disabled:opacity-50"
                 >
-                  {status === "submitting" ? "Enviando…" : copyByMode[mode].submitLabel}
+                  {status === "submitting" ? "Enviando…" : "Consultar por WhatsApp"}
                 </button>
               </form>
             )}
