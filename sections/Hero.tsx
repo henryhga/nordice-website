@@ -45,136 +45,156 @@ export function Hero() {
       ref={sectionRef}
       id="inicio"
       aria-label="Presentación"
-      className="relative min-h-svh w-full overflow-hidden bg-ink-deep"
+      className="relative w-full overflow-hidden bg-ink-deep"
     >
-      <motion.div style={{ y: mountainY, scale: mountainScale }} className="absolute inset-0 hidden sm:block">
-        <Image
-          src="/photography/hero-full.jpg"
-          alt="Montañas nevadas junto a un lago, con una botella y un vaso de whisky con hielo Nordice bajo luz dorada."
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, transparent 0%, transparent 6%, var(--color-ink-deep) 24%, var(--color-ink-deep) 68%, transparent 86%, transparent 100%)",
-          }}
-        />
-      </motion.div>
-
-      <motion.div style={{ y: mountainY }} className="absolute inset-x-0 bottom-0 h-40 sm:hidden">
-        <Image
-          src="/photography/hero-bottle.jpg"
-          alt="Botella y vaso Nordice con luz dorada."
-          fill
-          sizes="100vw"
-          className="object-cover object-[70%_30%]"
-          priority
-        />
-        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-ink-deep to-transparent" />
-      </motion.div>
-
-      <motion.div
-        aria-hidden="true"
-        style={{ y: iceY, scale: iceScale, opacity: iceOpacity }}
-        className="pointer-events-none absolute bottom-0 left-0 z-[1] hidden h-64 w-64 sm:block lg:h-80 lg:w-80"
-      >
-        <div
-          className="relative h-full w-full"
-          style={{
-            maskImage: "radial-gradient(closest-side, black 50%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(closest-side, black 50%, transparent 100%)",
-          }}
-        >
-          <Image src="/products/cubo.png" alt="" fill sizes="20rem" className="object-contain" />
-        </div>
-      </motion.div>
-
-      <div className="relative z-10 flex min-h-svh flex-col items-center justify-center px-6 pb-24 pt-24 text-center">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={stagger()}
-          className="flex flex-col items-center"
-        >
-          <motion.div variants={fadeUp}>
-            <Image
-              src="/brand/n-mark.png"
-              alt=""
-              width={785}
-              height={914}
-              priority
-              unoptimized
-              className="h-24 w-auto select-none sm:h-28"
-            />
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="mt-2 w-full max-w-xl">
-            {/* Wordmark real, sin transparencia (fuera de git/deploy —
-                copia de seguridad en /assets-originals). `unoptimized`:
-                el optimizador de imágenes de Next reencodea a WebP/AVIF y
-                aplana el canal alfa a opaco en esta versión. */}
-            <Image
-              src="/brand/wordmark.png"
-              alt={hero.brandName}
-              width={2172}
-              height={724}
-              priority
-              unoptimized
-              className="h-auto w-full select-none"
-            />
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="mt-3 w-full max-w-md">
-            <Image
-              src="/brand/signature.png"
-              alt={hero.sub}
-              width={2172}
-              height={724}
-              priority
-              unoptimized
-              className="h-auto w-full select-none"
-            />
-          </motion.div>
-
-          <motion.p
-            variants={fadeUp}
-            className="mt-6 text-xs uppercase tracking-[0.25em] text-platinum-dim"
-          >
-            {hero.subtext}
-          </motion.p>
-
-          <motion.a
-            variants={fadeUp}
-            href={hero.ctaHref}
-            className="mt-10 inline-flex items-center gap-3 border border-platinum/30 px-8 py-4 text-xs uppercase tracking-[0.25em] text-ice transition-colors duration-500 hover:border-platinum hover:bg-ice/5"
-          >
-            {hero.cta}
-            <span aria-hidden="true">→</span>
-          </motion.a>
+      {/* Todo lo que ocupaba la pantalla completa original (fondo de
+          escritorio, contenido, hint de scroll) queda dentro de este
+          contenedor min-h-svh — así el hint de scroll ("bottom-6") sigue
+          anclado al final de esa primera pantalla y no se hunde al pie de
+          la franja de foto que se agrega después en mobile. */}
+      <div className="relative min-h-svh w-full">
+        <motion.div style={{ y: mountainY, scale: mountainScale }} className="absolute inset-0 hidden sm:block">
+          <Image
+            src="/photography/hero-full.jpg"
+            alt="Montañas nevadas junto a un lago, con una botella y un vaso de whisky con hielo Nordice bajo luz dorada."
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to right, transparent 0%, transparent 6%, var(--color-ink-deep) 24%, var(--color-ink-deep) 68%, transparent 86%, transparent 100%)",
+            }}
+          />
         </motion.div>
+
+        <motion.div
+          aria-hidden="true"
+          style={{ y: iceY, scale: iceScale, opacity: iceOpacity }}
+          className="pointer-events-none absolute bottom-0 left-0 z-[1] hidden h-64 w-64 sm:block lg:h-80 lg:w-80"
+        >
+          <div
+            className="relative h-full w-full"
+            style={{
+              maskImage: "radial-gradient(closest-side, black 50%, transparent 100%)",
+              WebkitMaskImage: "radial-gradient(closest-side, black 50%, transparent 100%)",
+            }}
+          >
+            <Image src="/products/cubo.png" alt="" fill sizes="20rem" className="object-contain" />
+          </div>
+        </motion.div>
+
+        <div className="relative z-10 flex min-h-svh flex-col items-center justify-center px-6 pb-24 pt-24 text-center">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={stagger()}
+            className="flex flex-col items-center"
+          >
+            <motion.div variants={fadeUp}>
+              <Image
+                src="/brand/n-mark.png"
+                alt=""
+                width={785}
+                height={914}
+                priority
+                unoptimized
+                className="h-24 w-auto select-none sm:h-28"
+              />
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="mt-2 w-full max-w-xl">
+              {/* Wordmark real, sin transparencia (fuera de git/deploy —
+                  copia de seguridad en /assets-originals). `unoptimized`:
+                  el optimizador de imágenes de Next reencodea a WebP/AVIF y
+                  aplana el canal alfa a opaco en esta versión. */}
+              <Image
+                src="/brand/wordmark.png"
+                alt={hero.brandName}
+                width={2172}
+                height={724}
+                priority
+                unoptimized
+                className="h-auto w-full select-none"
+              />
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="mt-3 w-full max-w-md">
+              <Image
+                src="/brand/signature.png"
+                alt={hero.sub}
+                width={2172}
+                height={724}
+                priority
+                unoptimized
+                className="h-auto w-full select-none"
+              />
+            </motion.div>
+
+            <motion.p
+              variants={fadeUp}
+              className="mt-6 text-xs uppercase tracking-[0.25em] text-platinum-dim"
+            >
+              {hero.subtext}
+            </motion.p>
+
+            <motion.a
+              variants={fadeUp}
+              href={hero.ctaHref}
+              className="mt-10 inline-flex items-center gap-3 border border-platinum/30 px-8 py-4 text-xs uppercase tracking-[0.25em] text-ice transition-colors duration-500 hover:border-platinum hover:bg-ice/5"
+            >
+              {hero.cta}
+              <span aria-hidden="true">→</span>
+            </motion.a>
+          </motion.div>
+        </div>
+
+        <motion.a
+          href={hero.scrollHintHref}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 1.2 }}
+          className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3"
+        >
+          <span className="text-[10px] uppercase tracking-[0.3em] text-platinum-dim">
+            {hero.scrollHint}
+          </span>
+          <motion.span
+            className="h-10 w-px bg-platinum/40"
+            style={{ transformOrigin: "top" }}
+            animate={{ scaleY: [0.3, 1, 0.3] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.a>
       </div>
 
-      <motion.a
-        href={hero.scrollHintHref}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 1.2 }}
-        className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3"
-      >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-platinum-dim">
-          {hero.scrollHint}
-        </span>
-        <motion.span
-          className="h-10 w-px bg-platinum/40"
-          style={{ transformOrigin: "top" }}
-          animate={{ scaleY: [0.3, 1, 0.3] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.a>
+      {/* En mobile, object-cover full-bleed sobre un viewport angosto y
+          alto recortaría la montaña o la botella (la foto es panorámica,
+          1672×871). En vez de eso, la foto completa entra como una franja
+          normal a lo ancho de pantalla, en su relación de aspecto real —
+          se ve entera, sin omitir ningún costado — debajo de la primera
+          pantalla en vez de encima. */}
+      <motion.div style={{ y: mountainY }} className="relative w-full sm:hidden">
+        <div className="relative aspect-[1672/871] w-full">
+          <Image
+            src="/photography/hero-full.jpg"
+            alt="Montañas nevadas junto a un lago, con una botella y un vaso de whisky con hielo Nordice bajo luz dorada."
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to right, transparent 0%, transparent 6%, var(--color-ink-deep) 24%, var(--color-ink-deep) 68%, transparent 86%, transparent 100%)",
+            }}
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }

@@ -66,8 +66,11 @@ export function Essence() {
         </motion.p>
       </motion.div>
 
+      {/* aspect-[812/785]: la relación de aspecto real de
+          essence-scene.jpg — un aspect-square forzado recortaba un
+          ~3% de los costados; así entra completa, igual que en desktop. */}
       <div className="mt-10 sm:hidden">
-        <div className="relative aspect-square w-full">
+        <div className="relative aspect-[812/785] w-full">
           <Image
             src="/photography/essence-scene.jpg"
             alt="Cubo de hielo transparente Nordice frente a montañas nevadas."

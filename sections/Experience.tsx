@@ -32,7 +32,10 @@ export function Experience() {
       </div>
 
       <div className="relative z-10 flex flex-col gap-12 px-6 sm:px-10 lg:block lg:px-0">
-        <div className="relative aspect-[21/9] w-full overflow-hidden lg:hidden">
+        {/* aspect-[1010/871]: la relación de aspecto real de
+            experience-scene.jpg — un aspect-[21/9] forzado recortaba casi
+            la mitad de la foto en vertical; así entra completa. */}
+        <div className="relative aspect-[1010/871] w-full overflow-hidden lg:hidden">
           <Image
             src="/photography/experience-scene.jpg"
             alt="Vaso con cubo de hielo Nordice y vaso Collins con barra de hielo, junto a una botella."
