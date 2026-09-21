@@ -59,9 +59,19 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
     setStatus("submitting");
     const text = buildWhatsAppMessage({ name, occasion, contactMethod, productOfInterest, message });
 
+    // Ojo: pasar "noopener"/"noreferrer" en el string de features hace que
+    // window.open() devuelva SIEMPRE null por spec, haya o no bloqueado el
+    // popup — con eso, este chequeo de "win === null" para detectar
+    // bloqueo quedaba siempre en true, mostrando "no pudimos abrir
+    // WhatsApp" incluso en los envíos exitosos. Se abre sin esas features
+    // (así el valor de retorno sí refleja si bloqueó o no) y se corta la
+    // referencia al opener a mano, misma protección contra reverse
+    // tabnabbing sin perder la detección. El referrer ya queda cubierto
+    // por el header Referrer-Policy del sitio (ver next.config.ts).
     let win: Window | null = null;
     try {
-      win = window.open(`${contact.whatsapp.href}?text=${text}`, "_blank", "noopener,noreferrer");
+      win = window.open(`${contact.whatsapp.href}?text=${text}`, "_blank");
+      if (win) win.opener = null;
     } catch {
       win = null;
     }
