@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope, Herr_Von_Muellerhoff } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import { site } from "@/content/copy";
 import "./globals.css";
 
@@ -15,17 +15,6 @@ const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-// Reemplaza signature.png (la frase de marca tenía un script a mano
-// horneado en la imagen original) — una cursiva de trazo fino, no una
-// versión itálica de la serif de marca, para conservar el mismo estilo
-// de "firma" fina y fluida que tenía la versión en español.
-const signature = Herr_Von_Muellerhoff({
-  variable: "--font-signature",
-  subsets: ["latin"],
-  weight: "400",
   display: "swap",
 });
 
@@ -57,7 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${manrope.variable} ${signature.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ink-deep text-ice">{children}</body>
     </html>

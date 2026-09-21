@@ -119,28 +119,34 @@ export function Hero() {
               {hero.brandName}
             </motion.h1>
 
-            {/* Misma razón que el wordmark: signature.png tenía la frase
-                en un script a mano horneado en la imagen, con un trazo
-                decorativo (flourish) debajo, hacia la esquina inferior
-                derecha de la firma. Se reemplaza el texto por una cursiva
-                real de trazo fino (Herr Von Muellerhoff) y el trazo se
-                reconstruye a mano como SVG — ninguno de los dos existía
-                como elemento independiente en el PNG original. */}
-            <motion.div variants={fadeUp} className="mt-1 max-w-md">
-              <p className="font-signature text-5xl text-ice sm:text-6xl">{hero.sub}</p>
-              <svg
-                viewBox="0 0 220 56"
-                className="ml-auto -mt-1 h-6 w-44 text-platinum-dim sm:h-7 sm:w-52"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M4 48 C 50 34, 110 16, 160 9 C 176 7, 190 6, 182 16 C 176 24, 186 23, 200 14 C 206 10, 212 8, 216 6"
-                  stroke="currentColor"
-                  strokeWidth="1.25"
-                  strokeLinecap="round"
-                />
-              </svg>
+            {/* Asset provisto por el cliente (frace northice.png, ver
+                assets-originals/tagline-signature-original.png), recortado
+                en dos piezas: la frase en script (tagline-phrase.png) y,
+                debajo a la derecha, el trazo de la firma solo — sin
+                repetir el texto "Northice" en escritura, que ya está
+                arriba en el wordmark — extraído a mano del mismo PNG
+                (tagline-flourish.png), no una reconstrucción en SVG. Fondo
+                negro sólido original convertido a alfa real (luminancia →
+                alpha) en ambos para que no se vea un recuadro contra el
+                fondo del hero. */}
+            <motion.div variants={fadeUp} className="mt-1 w-full max-w-lg">
+              <Image
+                src="/brand/tagline-phrase.png"
+                alt={hero.sub}
+                width={1599}
+                height={209}
+                priority
+                unoptimized
+                className="h-auto w-full select-none"
+              />
+              <Image
+                src="/brand/tagline-flourish.png"
+                alt=""
+                width={268}
+                height={54}
+                unoptimized
+                className="ml-auto -mt-1 h-6 w-auto select-none sm:h-7"
+              />
             </motion.div>
 
             <motion.p
