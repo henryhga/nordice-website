@@ -120,16 +120,28 @@ export function Hero() {
             </motion.h1>
 
             {/* Misma razón que el wordmark: signature.png tenía la frase
-                en un script a mano horneado en la imagen — se reemplaza
-                por texto real en la misma familia cursiva de firma
-                (Mrs Saint Delafield), no una itálica de la serif de
-                marca, para conservar el mismo estilo de "firma". */}
-            <motion.p
-              variants={fadeUp}
-              className="mt-2 max-w-md font-signature text-4xl text-ice sm:text-5xl"
-            >
-              {hero.sub}
-            </motion.p>
+                en un script a mano horneado en la imagen, con un trazo
+                decorativo (flourish) debajo, hacia la esquina inferior
+                derecha de la firma. Se reemplaza el texto por una cursiva
+                real de trazo fino (Herr Von Muellerhoff) y el trazo se
+                reconstruye a mano como SVG — ninguno de los dos existía
+                como elemento independiente en el PNG original. */}
+            <motion.div variants={fadeUp} className="mt-1 max-w-md">
+              <p className="font-signature text-5xl text-ice sm:text-6xl">{hero.sub}</p>
+              <svg
+                viewBox="0 0 220 56"
+                className="ml-auto -mt-1 h-6 w-44 text-platinum-dim sm:h-7 sm:w-52"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M4 48 C 50 34, 110 16, 160 9 C 176 7, 190 6, 182 16 C 176 24, 186 23, 200 14 C 206 10, 212 8, 216 6"
+                  stroke="currentColor"
+                  strokeWidth="1.25"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </motion.div>
 
             <motion.p
               variants={fadeUp}
