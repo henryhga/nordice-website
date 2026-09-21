@@ -43,8 +43,8 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      id="inicio"
-      aria-label="Presentación"
+      id="home"
+      aria-label="Hero"
       className="relative w-full overflow-hidden bg-ink-deep"
     >
       {/* Todo lo que ocupaba la pantalla completa original (fondo de
@@ -56,7 +56,7 @@ export function Hero() {
         <motion.div style={{ y: mountainY, scale: mountainScale }} className="absolute inset-0 hidden sm:block">
           <Image
             src="/photography/hero-full.jpg"
-            alt="Montañas nevadas junto a un lago, con una botella y un vaso de whisky con hielo Nordice bajo luz dorada."
+            alt="Snow-covered mountains beside a lake, with a bottle and a whiskey glass holding Northice ice under warm golden light."
             fill
             sizes="100vw"
             className="object-cover"
@@ -106,33 +106,26 @@ export function Hero() {
               />
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-2 w-full max-w-xl">
-              {/* Wordmark real, sin transparencia (fuera de git/deploy —
-                  copia de seguridad en /assets-originals). `unoptimized`:
-                  el optimizador de imágenes de Next reencodea a WebP/AVIF y
-                  aplana el canal alfa a opaco en esta versión. */}
-              <Image
-                src="/brand/wordmark.png"
-                alt={hero.brandName}
-                width={2172}
-                height={724}
-                priority
-                unoptimized
-                className="h-auto w-full select-none"
-              />
-            </motion.div>
+            {/* Wordmark como texto real, no como imagen: el PNG original
+                tiene "NORDICE" horneado en los píxeles y no hay forma de
+                regenerar esa tipografía custom para el nuevo nombre. El
+                mismo font-serif de marca (Fraunces) a gran escala. */}
+            <motion.h1
+              variants={fadeUp}
+              className="mt-2 font-serif text-6xl font-normal uppercase tracking-[0.06em] text-ice select-none sm:text-7xl md:text-8xl"
+            >
+              {hero.brandName}
+            </motion.h1>
 
-            <motion.div variants={fadeUp} className="mt-3 w-full max-w-md">
-              <Image
-                src="/brand/signature.png"
-                alt={hero.sub}
-                width={2172}
-                height={724}
-                priority
-                unoptimized
-                className="h-auto w-full select-none"
-              />
-            </motion.div>
+            {/* Misma razón que el wordmark: signature.png tenía la frase
+                en español horneada en un script a mano — se reemplaza por
+                texto real en cursiva, editable y traducible. */}
+            <motion.p
+              variants={fadeUp}
+              className="mt-4 max-w-md font-serif text-xl italic text-ice sm:text-2xl"
+            >
+              {hero.sub}
+            </motion.p>
 
             <motion.p
               variants={fadeUp}
@@ -181,7 +174,7 @@ export function Hero() {
         <div className="relative aspect-[1672/871] w-full">
           <Image
             src="/photography/hero-full.jpg"
-            alt="Montañas nevadas junto a un lago, con una botella y un vaso de whisky con hielo Nordice bajo luz dorada."
+            alt="Snow-covered mountains beside a lake, with a bottle and a whiskey glass holding Northice ice under warm golden light."
             fill
             sizes="100vw"
             className="object-cover"

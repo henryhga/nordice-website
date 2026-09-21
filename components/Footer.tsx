@@ -2,18 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { site, contact, hero } from "@/content/copy";
 
-// Footer compacto: logo a la izquierda, frase de marca centrada,
-// ubicación + contacto real a la derecha — misma distribución de 3
-// columnas que la referencia (logo | frase | ciudad), con el WhatsApp
-// real añadido junto a la ciudad (la referencia no trae contacto, pero
-// no hay razón para perder un dato real y útil).
+// Compact footer: logo on the left, brand phrase centered, location +
+// real contact on the right — same 3-column layout as the reference
+// (logo | phrase | city), with the real WhatsApp number added next to
+// the city (the reference has no contact info, but there's no reason to
+// drop a real, useful piece of data).
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="border-t border-platinum/10 bg-ink-deep px-6 py-8 sm:px-10 lg:px-24">
       <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <Link href="#inicio" className="flex items-center gap-3 font-serif text-lg tracking-[0.2em] text-ice">
+        <Link href="#home" className="flex items-center gap-3 font-serif text-lg tracking-[0.2em] text-ice">
           <Image
             src="/brand/n-mark.png"
             alt=""
@@ -22,7 +22,7 @@ export function Footer() {
             unoptimized
             className="h-8 w-auto select-none"
           />
-          NORDICE
+          {site.name.toUpperCase()}
         </Link>
 
         <p className="font-serif text-sm italic text-platinum-dim">{hero.sub}</p>
@@ -38,7 +38,7 @@ export function Footer() {
       </div>
 
       <p className="mt-8 text-center text-[11px] uppercase tracking-[0.15em] text-platinum-dim/60">
-        © {year} {site.name}. Todos los derechos reservados.
+        © {year} {site.name}. All rights reserved.
       </p>
     </footer>
   );

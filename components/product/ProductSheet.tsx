@@ -53,7 +53,7 @@ export function ProductSheet({ item, onClose, onCheckAvailability }: ProductShee
         >
           <motion.button
             type="button"
-            aria-label="Cerrar"
+            aria-label="Close"
             onClick={onClose}
             className="absolute inset-0 bg-ink-deep/80 backdrop-blur-sm"
             initial={{ opacity: 0 }}
@@ -76,7 +76,7 @@ export function ProductSheet({ item, onClose, onCheckAvailability }: ProductShee
             <button
               ref={closeRef}
               type="button"
-              aria-label="Cerrar"
+              aria-label="Close"
               onClick={onClose}
               className="absolute right-6 top-6 text-platinum-dim transition-colors duration-500 hover:text-ice"
             >

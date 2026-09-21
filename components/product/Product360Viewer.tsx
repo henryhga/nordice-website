@@ -80,7 +80,7 @@ function ViewerPanel({
     >
       <motion.button
         type="button"
-        aria-label="Cerrar"
+        aria-label="Close"
         onClick={onClose}
         className="absolute inset-0 bg-ink-deep/85 backdrop-blur-sm"
         initial={{ opacity: 0 }}
@@ -101,7 +101,7 @@ function ViewerPanel({
         <button
           ref={closeRef}
           type="button"
-          aria-label="Cerrar"
+          aria-label="Close"
           onClick={onClose}
           className="absolute right-6 top-6 text-platinum-dim transition-colors duration-500 hover:text-ice"
         >
@@ -125,7 +125,7 @@ function ViewerPanel({
           {hasRealSequence ? (
             <Image
               src={item.frames[frameIndex]}
-              alt={`${item.name} — ángulo ${frameIndex + 1} de ${item.frames.length}`}
+              alt={`${item.name} — angle ${frameIndex + 1} of ${item.frames.length}`}
               fill
               sizes="24rem"
               className="object-contain"
@@ -139,7 +139,7 @@ function ViewerPanel({
             >
               <Image
                 src={item.frames[0]}
-                alt={`${item.name}, acercamiento`}
+                alt={`${item.name}, close-up`}
                 fill
                 sizes="24rem"
                 className="object-contain"
@@ -151,12 +151,12 @@ function ViewerPanel({
 
         {hasRealSequence ? (
           <p className="mt-6 text-center text-[11px] uppercase tracking-[0.2em] text-platinum-dim">
-            Arrastra para girar
+            Drag to rotate
           </p>
         ) : (
           <p className="mt-6 max-w-xs text-center text-xs text-platinum-dim">
-            Vista previa en acercamiento. El giro 360° real está pendiente de una secuencia fotográfica
-            multiángulo (o modelo 3D) de esta pieza.
+            Close-up preview. The real 360° rotation is pending a multi-angle photo sequence (or 3D model)
+            of this piece.
           </p>
         )}
       </motion.div>

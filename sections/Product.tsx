@@ -22,8 +22,8 @@ export function Product() {
 
   return (
     <section
-      id="producto"
-      aria-label="Nuestros productos"
+      id="products"
+      aria-label="Our products"
       className="bg-ink-deep px-6 py-20 sm:px-10 md:py-28 lg:px-24"
     >
       <motion.div
@@ -63,7 +63,7 @@ export function Product() {
           <InteractiveLight className="aspect-[1672/423] w-full">
             <Image
               src="/photography/product-scene.jpg"
-              alt="Los cuatro productos Nordice — Collins, cubo 2×2, esfera y cubo 2×1.75 — sobre la misma superficie."
+              alt="The four Northice products — Collins, 2×2 cube, sphere and 2×1.75 cube — on the same surface."
               fill
               sizes="(min-width: 1024px) 1152px, 100vw"
               className="object-contain"
@@ -73,7 +73,7 @@ export function Product() {
               className="absolute left-[20%] right-[19%] top-0 h-[24%]"
               style={{
                 background:
-                  "linear-gradient(to bottom, var(--color-ink-deep) 0%, var(--color-ink-deep) 45%, transparent 100%)",
+                  "linear-gradient(to bottom, var(--color-ink-deep) 0%, var(--color-ink-deep) 68%, transparent 100%)",
                 maskImage:
                   "linear-gradient(to right, transparent 0%, black 11.5%, black 88.5%, transparent 100%)",
                 WebkitMaskImage:
@@ -92,7 +92,7 @@ export function Product() {
               <button
                 type="button"
                 onClick={() => setSheetItem({ name: item.name, spec: item.spec })}
-                aria-label={`Ver ficha de ${item.name} ${item.spec}`}
+                aria-label={`View ${item.name} ${item.spec} details`}
                 className="group -mx-2 min-h-[2.75rem] px-2 py-1"
               >
                 <span className="block font-serif text-sm uppercase tracking-[0.06em] text-ice transition-colors duration-500 group-hover:text-platinum sm:text-base">
@@ -104,7 +104,7 @@ export function Product() {
               <button
                 type="button"
                 onClick={() => setViewerItem({ name: item.name, spec: item.spec, frames: [item.photo] })}
-                aria-label={`Ver ${item.name} ${item.spec} en detalle`}
+                aria-label={`View ${item.name} ${item.spec} close-up`}
                 className="mt-2 min-h-[2.75rem] px-2 text-[10px] uppercase tracking-[0.15em] text-platinum-dim underline underline-offset-4 transition-colors duration-500 hover:text-ice"
               >
                 {product.view360}

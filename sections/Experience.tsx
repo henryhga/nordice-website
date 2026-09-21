@@ -16,14 +16,14 @@ export function Experience() {
 
   return (
     <section
-      id="experiencia"
-      aria-label="La experiencia Nordice"
+      id="experience"
+      aria-label="The Northice experience"
       className="relative min-h-[42rem] w-full overflow-hidden bg-ink-deep py-20 md:py-28"
     >
       <div className="absolute inset-y-0 left-0 hidden w-[58%] lg:block">
         <Image
           src="/photography/experience-scene.jpg"
-          alt="Vaso con cubo de hielo Nordice y vaso Collins con barra de hielo, junto a una botella."
+          alt="Glass with a Northice ice cube and a Collins glass with an ice bar, next to a bottle."
           fill
           sizes="58vw"
           className="object-cover"
@@ -38,7 +38,7 @@ export function Experience() {
         <div className="relative aspect-[1010/871] w-full overflow-hidden lg:hidden">
           <Image
             src="/photography/experience-scene.jpg"
-            alt="Vaso con cubo de hielo Nordice y vaso Collins con barra de hielo, junto a una botella."
+            alt="Glass with a Northice ice cube and a Collins glass with an ice bar, next to a bottle."
             fill
             sizes="100vw"
             className="object-cover"

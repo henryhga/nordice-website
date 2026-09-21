@@ -10,7 +10,7 @@ interface ComingSoonContextValue {
 
 const ComingSoonContext = createContext<ComingSoonContextValue | null>(null);
 
-// Reemplaza el flujo de "solicitar muestra": Nordice todavía no lanzó,
+// Reemplaza el flujo de "solicitar muestra": Northice todavía no lanzó,
 // así que cualquier CTA que antes abría el formulario de muestra ahora
 // abre este anuncio de lanzamiento en su lugar.
 export function ComingSoonProvider({ children }: { children: ReactNode }) {

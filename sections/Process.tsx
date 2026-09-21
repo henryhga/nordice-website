@@ -108,7 +108,7 @@ export function Process() {
   const lineScale = useTransform(scrollYProgress, [0, 1], reduceMotion ? [1, 1] : [0, 1]);
 
   return (
-    <section id="proceso" aria-label="Nuestro proceso" className="bg-ink-deep">
+    <section id="process" aria-label="Our process" className="bg-ink-deep">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -124,7 +124,7 @@ export function Process() {
       <div className="relative aspect-[1672/685] w-full overflow-hidden">
         <Image
           src="/photography/process-scene.jpg"
-          alt="Tres etapas del proceso Nordice: congelación, corte y acabado."
+          alt="Three stages of the Northice process: freezing, cutting and finishing."
           fill
           sizes="100vw"
           className="object-cover"

@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { contact, product } from "@/content/copy";
 import { useDialogBehavior } from "@/lib/useDialogBehavior";
 
-const productOptions = [...product.items.map((item) => `${item.name} ${item.spec}`), "No estoy seguro / varios"];
+const productOptions = [...product.items.map((item) => `${item.name} ${item.spec}`), "Not sure / several"];
 
 interface RequestModalDialogProps {
   isOpen: boolean;
@@ -27,12 +27,12 @@ function buildWhatsAppMessage(fields: {
   message: string;
 }) {
   const lines = [
-    `Hola Nordice, soy ${fields.name || "—"}.`,
-    "Quisiera consultar disponibilidad.",
-    fields.occasion && `Negocio / ocasión: ${fields.occasion}`,
-    fields.productOfInterest && `Producto de interés: ${fields.productOfInterest}`,
-    fields.contactMethod && `Prefiero que me contacten por: ${fields.contactMethod}`,
-    fields.message && `Mensaje: ${fields.message}`,
+    `Hi Northice, I'm ${fields.name || "—"}.`,
+    "I'd like to check availability.",
+    fields.occasion && `Business / occasion: ${fields.occasion}`,
+    fields.productOfInterest && `Product of interest: ${fields.productOfInterest}`,
+    fields.contactMethod && `I'd prefer to be contacted by: ${fields.contactMethod}`,
+    fields.message && `Message: ${fields.message}`,
   ].filter(Boolean);
   return encodeURIComponent(lines.join("\n"));
 }
@@ -69,7 +69,7 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
     if (!win) {
       setStatus("error");
       setFormError(
-        "No pudimos abrir WhatsApp — es posible que el navegador haya bloqueado la ventana emergente. Permite pop-ups para este sitio o escríbenos directo por WhatsApp.",
+        "We couldn't open WhatsApp — your browser may have blocked the pop-up. Allow pop-ups for this site or message us directly on WhatsApp.",
       );
       return;
     }
@@ -93,7 +93,7 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
         >
           <motion.button
             type="button"
-            aria-label="Cerrar"
+            aria-label="Close"
             onClick={onClose}
             className="absolute inset-0 bg-ink-deep/80 backdrop-blur-sm"
             initial={{ opacity: 0 }}
@@ -113,7 +113,7 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
           >
             <button
               type="button"
-              aria-label="Cerrar"
+              aria-label="Close"
               onClick={onClose}
               className="absolute right-6 top-6 text-platinum-dim transition-colors duration-500 hover:text-ice"
             >
@@ -121,12 +121,12 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
             </button>
 
             <h2 id="request-modal-title" className="font-serif text-2xl font-normal text-ice sm:text-3xl">
-              Consultar disponibilidad
+              Check availability
             </h2>
 
             {status === "sent" ? (
               <p className="mt-8 text-sm text-platinum-dim">
-                Te estamos redirigiendo a WhatsApp para enviar tu consulta. Si no se abrió, escríbenos directo a{" "}
+                We&rsquo;re redirecting you to WhatsApp to send your inquiry. If it didn&rsquo;t open, message us directly at{" "}
                 <a href={contact.whatsapp.href} className="text-ice underline underline-offset-4">
                   {contact.whatsapp.value}
                 </a>
@@ -136,7 +136,7 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
               <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-6">
                 <div>
                   <label htmlFor="request-name" className={labelClass}>
-                    Nombre
+                    Name
                   </label>
                   <input
                     id="request-name"
@@ -145,26 +145,26 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className={inputClass}
-                    placeholder="Tu nombre"
+                    placeholder="Your name"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="request-occasion" className={labelClass}>
-                    Negocio u ocasión
+                    Business or occasion
                   </label>
                   <input
                     id="request-occasion"
                     value={occasion}
                     onChange={(e) => setOccasion(e.target.value)}
                     className={inputClass}
-                    placeholder="Bar, hotel, evento privado…"
+                    placeholder="Bar, hotel, private event…"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="request-product" className={labelClass}>
-                    Producto de interés
+                    Product of interest
                   </label>
                   <select
                     id="request-product"
@@ -173,7 +173,7 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
                     className={`${inputClass} appearance-none bg-ink-deep`}
                   >
                     <option value="" className="bg-ink-deep">
-                      Seleccionar…
+                      Select…
                     </option>
                     {productOptions.map((option) => (
                       <option key={option} value={option} className="bg-ink-deep">
@@ -185,7 +185,7 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
 
                 <div>
                   <label htmlFor="request-contact" className={labelClass}>
-                    Medio de contacto
+                    Preferred contact
                   </label>
                   <input
                     id="request-contact"
@@ -193,13 +193,13 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
                     value={contactMethod}
                     onChange={(e) => setContactMethod(e.target.value)}
                     className={inputClass}
-                    placeholder="Teléfono, email o WhatsApp"
+                    placeholder="Phone, email or WhatsApp"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="request-message" className={labelClass}>
-                    Mensaje
+                    Message
                   </label>
                   <textarea
                     id="request-message"
@@ -207,7 +207,7 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className={`${inputClass} resize-none`}
-                    placeholder="Cuéntanos qué necesitas"
+                    placeholder="Tell us what you need"
                   />
                 </div>
 
@@ -218,8 +218,8 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
                 )}
 
                 <p className="text-[11px] leading-relaxed text-platinum-dim/70">
-                  Tu consulta se envía por WhatsApp a {contact.whatsapp.value}. La integración de email o CRM
-                  todavía no está configurada.
+                  Your inquiry is sent via WhatsApp to {contact.whatsapp.value}. Email or CRM integration
+                  isn&rsquo;t configured yet.
                 </p>
 
                 <button
@@ -227,7 +227,7 @@ export function RequestModalDialog({ isOpen, product: presetProduct, onClose }: 
                   disabled={status === "submitting"}
                   className="mt-2 inline-flex items-center justify-center gap-3 border border-platinum/30 px-8 py-4 text-xs uppercase tracking-[0.25em] text-ice transition-colors duration-500 hover:border-platinum hover:bg-ice/5 disabled:opacity-50"
                 >
-                  {status === "submitting" ? "Enviando…" : "Consultar por WhatsApp"}
+                  {status === "submitting" ? "Sending…" : "Check via WhatsApp"}
                 </button>
               </form>
             )}

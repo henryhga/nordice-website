@@ -10,11 +10,11 @@ interface ComingSoonDialogProps {
   onClose: () => void;
 }
 
-// Mismo patrón sin backend que el resto del sitio: "Be part of Nordice"
+// Mismo patrón sin backend que el resto del sitio: "Be part of Northice"
 // abre WhatsApp con un mensaje de lista de lanzamiento ya armado — no hay
 // captura de email real todavía, así que no simulamos un envío.
 const JOIN_LIST_MESSAGE = encodeURIComponent(
-  "Hola Nordice, quiero unirme a la lista de lanzamiento y recibir novedades.",
+  "Hi Northice, I'd like to join the launch list and get updates.",
 );
 
 export function ComingSoonDialog({ isOpen, onClose }: ComingSoonDialogProps) {
@@ -33,7 +33,7 @@ export function ComingSoonDialog({ isOpen, onClose }: ComingSoonDialogProps) {
         >
           <motion.button
             type="button"
-            aria-label="Cerrar"
+            aria-label="Close"
             onClick={onClose}
             className="absolute inset-0 bg-ink-deep/80 backdrop-blur-sm"
             initial={{ opacity: 0 }}
@@ -54,7 +54,7 @@ export function ComingSoonDialog({ isOpen, onClose }: ComingSoonDialogProps) {
             <button
               ref={closeRef}
               type="button"
-              aria-label="Cerrar"
+              aria-label="Close"
               onClick={onClose}
               className="absolute right-6 top-6 text-platinum-dim transition-colors duration-500 hover:text-ice"
             >

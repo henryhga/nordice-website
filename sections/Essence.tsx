@@ -14,14 +14,14 @@ import { fadeUp, stagger } from "@/lib/motion";
 export function Essence() {
   return (
     <section
-      id="esencia"
-      aria-label="Nuestra esencia"
+      id="essence"
+      aria-label="Our essence"
       className="relative min-h-[46rem] w-full overflow-hidden bg-ink-deep px-6 py-20 sm:px-10 md:py-28 lg:px-24"
     >
       <div className="absolute inset-y-0 right-0 hidden w-[46%] sm:block">
         <Image
           src="/photography/essence-scene.jpg"
-          alt="Cubo de hielo transparente Nordice frente a montañas nevadas."
+          alt="Clear Northice ice cube in front of snow-covered mountains."
           fill
           sizes="46vw"
           className="object-cover"
@@ -73,7 +73,7 @@ export function Essence() {
         <div className="relative aspect-[812/785] w-full">
           <Image
             src="/photography/essence-scene.jpg"
-            alt="Cubo de hielo transparente Nordice frente a montañas nevadas."
+            alt="Clear Northice ice cube in front of snow-covered mountains."
             fill
             sizes="100vw"
             className="object-cover"

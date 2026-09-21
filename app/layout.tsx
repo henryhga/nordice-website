@@ -21,31 +21,31 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(`https://${site.domain}`),
   title: {
-    default: `${site.name} — Clear Ice de Autor`,
+    default: `${site.name} — Artisan Clear Ice`,
     template: `%s — ${site.name}`,
   },
   description: site.description,
   openGraph: {
-    title: `${site.name} — Clear Ice de Autor`,
+    title: `${site.name} — Artisan Clear Ice`,
     description: site.description,
     url: `https://${site.domain}`,
     siteName: site.name,
-    images: ["/brand/wordmark.png"],
-    locale: "es_US",
+    images: ["/brand/n-mark.png"],
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — Clear Ice de Autor`,
+    title: `${site.name} — Artisan Clear Ice`,
     description: site.description,
-    images: ["/brand/wordmark.png"],
+    images: ["/brand/n-mark.png"],
   },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="es"
+      lang="en"
       className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ink-deep text-ice">{children}</body>
