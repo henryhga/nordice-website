@@ -108,21 +108,25 @@ export function Hero() {
 
             {/* Wordmark como texto real, no como imagen: el PNG original
                 tiene "NORDICE" horneado en los píxeles y no hay forma de
-                regenerar esa tipografía custom para el nuevo nombre. El
-                mismo font-serif de marca (Fraunces) a gran escala. */}
+                regenerar esa tipografía custom para el nuevo nombre. Mismo
+                font-serif de marca (Fraunces), mismas mayúsculas y tracking
+                que antes — el degradado plata imita el acabado facetado/
+                pulido del wordmark original sin cambiar la letra. */}
             <motion.h1
               variants={fadeUp}
-              className="mt-2 font-serif text-6xl font-normal uppercase tracking-[0.06em] text-ice select-none sm:text-7xl md:text-8xl"
+              className="mt-2 bg-gradient-to-b from-ice via-platinum to-platinum-dim bg-clip-text font-serif text-6xl font-normal uppercase tracking-[0.06em] text-transparent select-none sm:text-7xl md:text-8xl"
             >
               {hero.brandName}
             </motion.h1>
 
             {/* Misma razón que el wordmark: signature.png tenía la frase
-                en español horneada en un script a mano — se reemplaza por
-                texto real en cursiva, editable y traducible. */}
+                en un script a mano horneado en la imagen — se reemplaza
+                por texto real en la misma familia cursiva de firma
+                (Mrs Saint Delafield), no una itálica de la serif de
+                marca, para conservar el mismo estilo de "firma". */}
             <motion.p
               variants={fadeUp}
-              className="mt-4 max-w-md font-serif text-xl italic text-ice sm:text-2xl"
+              className="mt-2 max-w-md font-signature text-4xl text-ice sm:text-5xl"
             >
               {hero.sub}
             </motion.p>

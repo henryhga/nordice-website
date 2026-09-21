@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Fraunces, Manrope, Mrs_Saint_Delafield } from "next/font/google";
 import { site } from "@/content/copy";
 import "./globals.css";
 
@@ -15,6 +15,17 @@ const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+// Reemplaza signature.png (la frase de marca tenía un script a mano
+// horneado en la imagen original) — una cursiva real, no una versión
+// itálica de la serif de marca, para conservar el mismo estilo de
+// "firma" que tenía la versión en español.
+const signature = Mrs_Saint_Delafield({
+  variable: "--font-signature",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -46,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${manrope.variable} ${signature.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ink-deep text-ice">{children}</body>
     </html>

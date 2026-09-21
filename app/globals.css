@@ -24,6 +24,7 @@
 
   --font-serif: var(--font-fraunces);
   --font-sans: var(--font-manrope);
+  --font-signature: var(--font-signature);
 }
 
 body {
